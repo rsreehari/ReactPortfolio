@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7877c6"/>
+      <stop offset="50%" stop-color="#ff77c6"/>
+      <stop offset="100%" stop-color="#78dbff"/>
+    </linearGradient>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+  <rect width="256" height="256" rx="48" fill="#060010"/>
+  <g filter="url(#shadow)">
+    <circle cx="128" cy="128" r="92" fill="url(#g1)" opacity="0.18"/>
+  </g>
+  <g>
+    <text x="50%" y="50%" dy="12" text-anchor="middle" font-family="'Bricolage Grotesque', system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-weight="800" font-size="112" fill="url(#g1)">RS</text>
+  </g>
+</svg>
