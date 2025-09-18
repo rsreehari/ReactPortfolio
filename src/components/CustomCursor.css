@@ -1,0 +1,176 @@
+/* Custom Cursor - React Bits Inspired */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background: rgba(120, 119, 198, 0.8);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+  backdrop-filter: blur(2px);
+  transition: all 0.1s ease;
+}
+
+.custom-cursor.hovering {
+  transform: translate(-50%, -50%) scale(1.5);
+}
+
+.custom-cursor.clicking {
+  transform: translate(-50%, -50%) scale(0.8);
+}
+
+/* Cursor dot */
+.cursor-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  background: #ffffff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.8;
+}
+
+/* Cursor text */
+.cursor-text {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.9);
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: nowrap;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cursor-text::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid rgba(0, 0, 0, 0.9);
+}
+
+/* Magnetic field visualization */
+.cursor-field {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  border: 1px solid rgba(120, 119, 198, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.1;
+}
+
+/* Trail effect */
+.cursor-trail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(
+    circle,
+    rgba(120, 119, 198, 0.2) 0%,
+    rgba(255, 119, 198, 0.1) 50%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  filter: blur(10px);
+}
+
+/* Cursor variants */
+.custom-cursor.pointer {
+  background: rgba(255, 119, 198, 0.8);
+  width: 30px;
+  height: 30px;
+}
+
+.custom-cursor.text {
+  background: rgba(120, 219, 255, 0.8);
+  width: 10px;
+  height: 10px;
+}
+
+.custom-cursor.view {
+  background: transparent;
+  border: 2px solid rgba(120, 119, 198, 0.8);
+  width: 40px;
+  height: 40px;
+}
+
+.custom-cursor.hidden {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0);
+}
+
+/* Hide default cursor */
+body {
+  cursor: none;
+}
+
+/* Show default cursor on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .custom-cursor,
+  .cursor-trail {
+    display: none;
+  }
+  
+  body {
+    cursor: auto;
+  }
+}
+
+/* Accessibility - show cursor for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .custom-cursor {
+    transition: none;
+    animation: none;
+  }
+  
+  .cursor-trail {
+    display: none;
+  }
+  
+  .cursor-field {
+    display: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .custom-cursor {
+    background: #ffffff;
+    mix-blend-mode: normal;
+    border: 2px solid #000000;
+  }
+  
+  .cursor-trail {
+    background: rgba(255, 255, 255, 0.3);
+  }
+  
+  .cursor-text {
+    background: #000000;
+    border: 2px solid #ffffff;
+  }
+}

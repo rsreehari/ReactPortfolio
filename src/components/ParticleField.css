@@ -1,0 +1,33 @@
+/* Particle Field - React Bits Inspired */
+.particle-field {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.6;
+}
+
+/* Reduce particles on mobile for performance */
+@media (max-width: 768px) {
+  .particle-field {
+    opacity: 0.3;
+  }
+}
+
+/* Hide particles for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .particle-field {
+    display: none;
+  }
+}
+
+/* High contrast mode - make particles more visible */
+@media (prefers-contrast: high) {
+  .particle-field {
+    opacity: 0.8;
+    filter: contrast(2);
+  }
+}

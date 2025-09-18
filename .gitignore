@@ -1,0 +1,54 @@
+# Dependencies
+node_modules/
+
+# Builds
+build/
+dist/
+.tmp/
+.temp/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+pnpm-debug.log*
+
+# Editor/OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Env
+.env
+.env.*.local
+
+# Testing
+coverage/
+.jest/
+
+# Misc
+*.local
+*.cache
+.eslintcache
+.stylelintcache
+
+# CRA
+# See https://create-react-app.dev/docs/adding-custom-environment-variables/
+# and default build artifacts
+.cache/
+
+# Storybook
+storybook-static/
+
+# Netlify/Vercel
+.netlify/
+.vercel/
+
+# TypeScript
+*.tsbuildinfo
+
+# Images generated or exported
+*.orig

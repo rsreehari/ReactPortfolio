@@ -1,0 +1,235 @@
+/* Enhanced Magnetic Button - React Bits Style */
+.magnetic-button {
+  position: relative;
+  cursor: pointer;
+  will-change: transform;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  display: inline-block;
+  isolation: isolate;
+}
+
+.magnetic-button:hover {
+  z-index: 100;
+}
+
+.magnetic-button.disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Magnetic glow effect */
+.magnetic-glow {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: radial-gradient(
+    circle,
+    rgba(120, 119, 198, 0.3) 0%,
+    rgba(255, 119, 198, 0.2) 50%,
+    transparent 70%
+  );
+  border-radius: inherit;
+  filter: blur(20px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Ripple effect */
+.magnetic-ripple {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(120, 119, 198, 0.2) 50%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Content wrapper */
+.magnetic-content {
+  position: relative;
+  z-index: 2;
+  transform-style: preserve-3d;
+  transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+/* Particle effects */
+.magnetic-particle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  background: linear-gradient(135deg, #7877c6, #ff77c6);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+  box-shadow: 0 0 10px rgba(120, 119, 198, 0.5);
+}
+
+/* Enhanced button styles for different variants */
+.magnetic-button .button-primary,
+.magnetic-button .button-secondary {
+  position: relative;
+  overflow: hidden;
+  border-radius: 50px;
+  backdrop-filter: blur(20px);
+  border: 1px solid transparent;
+  transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.magnetic-button .button-primary::before,
+.magnetic-button .button-secondary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: left 0.5s ease;
+  pointer-events: none;
+}
+
+.magnetic-button:hover .button-primary::before,
+.magnetic-button:hover .button-secondary::before {
+  left: 100%;
+}
+
+/* Social link enhancements */
+.magnetic-button .social-link {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.magnetic-button .social-link::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(
+    circle,
+    rgba(120, 119, 198, 0.2) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.magnetic-button:hover .social-link::after {
+  width: 100px;
+  height: 100px;
+}
+
+/* Magnetic field visualization (optional debug) */
+.magnetic-button.debug::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  left: -100px;
+  right: -100px;
+  bottom: -100px;
+  border: 1px dashed rgba(120, 119, 198, 0.3);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -2;
+}
+
+/* Accessibility and Performance */
+@media (prefers-reduced-motion: reduce) {
+  .magnetic-button {
+    transform: none !important;
+  }
+  
+  .magnetic-glow,
+  .magnetic-ripple,
+  .magnetic-particle {
+    display: none;
+  }
+  
+  .magnetic-content {
+    transform: none !important;
+  }
+  
+  .magnetic-button .button-primary::before,
+  .magnetic-button .button-secondary::before {
+    display: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .magnetic-glow {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .magnetic-particle {
+    background: #ffffff;
+    box-shadow: none;
+  }
+  
+  .magnetic-ripple {
+    background: rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .magnetic-button {
+    transform: none !important;
+  }
+  
+  .magnetic-glow {
+    opacity: 0.5;
+  }
+  
+  .magnetic-particle {
+    display: none;
+  }
+}
+
+/* Focus styles for accessibility */
+.magnetic-button:focus-visible {
+  outline: 2px solid rgba(120, 119, 198, 0.8);
+  outline-offset: 4px;
+}
+
+.magnetic-button:focus-visible .magnetic-glow {
+  opacity: 1;
+  animation: focus-pulse 2s ease-in-out infinite;
+}
+
+@keyframes focus-pulse {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% { 
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}

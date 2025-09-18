@@ -1,0 +1,54 @@
+.interactive-card {
+  position: relative;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease-out;
+  will-change: transform;
+  --glow-x: 50%;
+  --glow-y: 50%;
+}
+
+.card-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+}
+
+.card-glow {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: radial-gradient(
+    circle at var(--glow-x) var(--glow-y),
+    rgba(120, 119, 198, 0.3) 0%,
+    rgba(255, 119, 198, 0.2) 25%,
+    rgba(120, 219, 255, 0.1) 50%,
+    transparent 70%
+  );
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.interactive-card:hover .card-glow {
+  opacity: 1;
+}
+
+.interactive-card:hover {
+  z-index: 10;
+}
+
+@media (max-width: 768px) {
+  .interactive-card {
+    transform: none !important;
+  }
+  
+  .card-glow {
+    display: none;
+  }
+}

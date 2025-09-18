@@ -1,0 +1,118 @@
+.floating-elements-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.floating-element {
+  position: absolute;
+  will-change: transform;
+  transition: transform 0.1s ease-out;
+}
+
+.element-1 {
+  top: 10%;
+  left: 10%;
+}
+
+.element-2 {
+  top: 20%;
+  right: 15%;
+}
+
+.element-3 {
+  bottom: 25%;
+  left: 20%;
+}
+
+.element-4 {
+  bottom: 15%;
+  right: 10%;
+}
+
+.floating-shape {
+  opacity: 0.1;
+  background: linear-gradient(135deg, #7877c6, #ff77c6, #78dbff);
+}
+
+.circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 52px solid;
+  border-bottom-color: inherit;
+  background: transparent;
+}
+
+.square {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  transform: rotate(45deg);
+}
+
+.hexagon {
+  width: 50px;
+  height: 43px;
+  position: relative;
+}
+
+.hexagon:before,
+.hexagon:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+}
+
+.hexagon:before {
+  bottom: 100%;
+  border-bottom: 14px solid;
+  border-bottom-color: inherit;
+}
+
+.hexagon:after {
+  top: 100%;
+  border-top: 14px solid;
+  border-top-color: inherit;
+}
+
+@media (max-width: 768px) {
+  .floating-shape {
+    opacity: 0.05;
+  }
+  
+  .circle {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .triangle {
+    border-left-width: 20px;
+    border-right-width: 20px;
+    border-bottom-width: 35px;
+  }
+  
+  .square {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .hexagon {
+    width: 35px;
+    height: 30px;
+  }
+}

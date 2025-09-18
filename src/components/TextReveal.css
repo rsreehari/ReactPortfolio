@@ -1,0 +1,125 @@
+/* Enhanced Text Reveal Component - React Bits Style */
+.text-reveal {
+  overflow: visible;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.text-reveal-word,
+.text-reveal-element {
+  display: inline-block;
+  transform-origin: bottom center;
+  will-change: transform, opacity, filter;
+  cursor: default;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.text-reveal-word:hover,
+.text-reveal-element:hover {
+  z-index: 10;
+}
+
+/* Gradient text effects */
+.text-reveal .gradient-text {
+  background: linear-gradient(
+    135deg,
+    #7877c6 0%,
+    #ff77c6 30%,
+    #78dbff 60%,
+    #7877c6 100%
+  );
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-flow 4s ease-in-out infinite;
+}
+
+@keyframes gradient-flow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Enhanced hover effects */
+.text-reveal-word::before,
+.text-reveal-element::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(120, 119, 198, 0.1), rgba(255, 119, 198, 0.1));
+  border-radius: 4px;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.text-reveal-word:hover::before,
+.text-reveal-element:hover::before {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Stagger animation classes */
+.text-reveal.stagger-fast {
+  --stagger-delay: 0.05s;
+}
+
+.text-reveal.stagger-slow {
+  --stagger-delay: 0.15s;
+}
+
+/* Animation type classes */
+.text-reveal.blur-in .text-reveal-word,
+.text-reveal.blur-in .text-reveal-element {
+  filter: blur(0px);
+}
+
+.text-reveal.scale-in .text-reveal-word,
+.text-reveal.scale-in .text-reveal-element {
+  transform-origin: center;
+}
+
+.text-reveal.rotate-in .text-reveal-word,
+.text-reveal.rotate-in .text-reveal-element {
+  transform-origin: center;
+  transform-style: preserve-3d;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .text-reveal-word,
+  .text-reveal-element {
+    transition: none;
+  }
+  
+  .gradient-text {
+    animation: none;
+    background-position: 0% 50%;
+  }
+  
+  .text-reveal-word::before,
+  .text-reveal-element::before {
+    transition: none;
+  }
+}
+
+/* High contrast support */
+@media (prefers-contrast: high) {
+  .gradient-text {
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    color: #ffffff;
+  }
+  
+  .text-reveal-word::before,
+  .text-reveal-element::before {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}

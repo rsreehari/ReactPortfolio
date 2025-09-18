@@ -1,0 +1,155 @@
+.skills {
+  padding: 120px 0;
+}
+
+.skills-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.skills-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.skill-category {
+  padding: 2rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.skill-category:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.category-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #7877c6 0%, #ff77c6 100%);
+  border-radius: 12px;
+  font-size: 1.25rem;
+  color: white;
+}
+
+.category-header h3 {
+  color: #ffffff;
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.skill-tag {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.skill-tag:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+}
+
+.currently-learning {
+  display: flex;
+  justify-content: center;
+}
+
+.learning-card {
+  padding: 2.5rem;
+  text-align: center;
+  max-width: 800px;
+  width: 100%;
+}
+
+.learning-card h3 {
+  color: #ffffff;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.learning-card p {
+  margin-bottom: 2rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.learning-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.learning-tag {
+  background: linear-gradient(135deg, rgba(120, 119, 198, 0.2) 0%, rgba(255, 119, 198, 0.2) 100%);
+  border: 1px solid rgba(120, 119, 198, 0.3);
+  padding: 0.75rem 1.25rem;
+  border-radius: 25px;
+  font-size: 0.95rem;
+  color: #ffffff;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.learning-tag:hover {
+  background: linear-gradient(135deg, rgba(120, 119, 198, 0.3) 0%, rgba(255, 119, 198, 0.3) 100%);
+  border-color: rgba(120, 119, 198, 0.5);
+  box-shadow: 0 5px 15px rgba(120, 119, 198, 0.2);
+}
+
+@media (max-width: 768px) {
+  .skills {
+    padding: 80px 0;
+  }
+  
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .skill-category {
+    padding: 1.5rem;
+  }
+  
+  .learning-card {
+    padding: 2rem;
+  }
+  
+  .learning-list {
+    gap: 0.75rem;
+  }
+  
+  .learning-tag {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}
