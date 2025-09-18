@@ -109,6 +109,18 @@
   will-change: transform, filter;
 }
 
+/* Perceived performance: fade-in once loaded */
+.hero-photo {
+  opacity: 0;
+  transform: scale(0.995);
+}
+
+.hero-photo.loaded {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 400ms ease, transform 400ms ease;
+}
+
 .image-frame:hover img {
   filter: contrast(1.2) saturate(1.4);
   transform: scale(1.02);

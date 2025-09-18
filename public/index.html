@@ -11,6 +11,8 @@
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!-- Preload hero image to improve LCP -->
+    <link rel="preload" as="image" href="%PUBLIC_URL%/images/Sreehari.png" imagesrcset="%PUBLIC_URL%/images/Sreehari.avif 1x, %PUBLIC_URL%/images/Sreehari.webp 1x, %PUBLIC_URL%/images/Sreehari.png 1x" imagesizes="350px" fetchpriority="high" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Figtree:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
