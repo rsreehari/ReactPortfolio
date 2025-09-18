@@ -201,22 +201,18 @@ const Hero = () => {
                 }}
                 transition={{ duration: 0.3 }}
               >
-                <picture>
-                  <source srcSet="/images/Sreehari.avif" type="image/avif" />
-                  <source srcSet="/images/Sreehari.webp" type="image/webp" />
-                  <img
-                    src="/images/Sreehari.png"
-                    alt="R Sreehari"
-                    width="350"
-                    height="350"
-                    loading="eager"
-                    decoding="async"
-                    fetchpriority="high"
-                    className={`hero-photo ${photoLoaded ? 'loaded' : ''}`}
-                    onLoad={() => setPhotoLoaded(true)}
-                    onError={() => setPhotoLoaded(true)}
-                  />
-                </picture>
+                <img
+                  src="/images/Sreehari.png"
+                  alt="R Sreehari"
+                  width="350"
+                  height="350"
+                  loading="eager"
+                  decoding="async"
+                  fetchpriority="high"
+                  className={`hero-photo ${photoLoaded ? 'loaded' : ''}`}
+                  onLoad={() => setPhotoLoaded(true)}
+                  onError={() => setPhotoLoaded(true)}
+                />
                 <motion.div 
                   className="image-glow"
                   variants={glowVariants}

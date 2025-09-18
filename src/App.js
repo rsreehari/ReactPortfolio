@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense, lazy } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Header from './components/Header';
 import Hero from './components/Hero';
-import About from './components/About';
-import Skills from './components/Skills';
-import Projects from './components/Projects';
-import Contact from './components/Contact';
-import FloatingElements from './components/FloatingElements';
-import CustomCursor from './components/CustomCursor';
-import ParticleField from './components/ParticleField';
 import './App.css';
+const About = lazy(() => import('./components/About'));
+const Skills = lazy(() => import('./components/Skills'));
+const Projects = lazy(() => import('./components/Projects'));
+const Contact = lazy(() => import('./components/Contact'));
+const FloatingElements = lazy(() => import('./components/FloatingElements'));
+const CustomCursor = lazy(() => import('./components/CustomCursor'));
+const ParticleField = lazy(() => import('./components/ParticleField'));
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -108,26 +108,34 @@ function App() {
             exit="exit"
           >
             {/* Background Effects */}
-            <ParticleField 
-              particleCount={isMobile ? 30 : 60}
-              interactive={!isMobile}
-              mouseRadius={120}
-              connectionDistance={100}
-              particleSpeed={0.3}
-            />
-            <FloatingElements />
+            <Suspense fallback={null}>
+              <ParticleField 
+                particleCount={isMobile ? 30 : 60}
+                interactive={!isMobile}
+                mouseRadius={120}
+                connectionDistance={100}
+                particleSpeed={0.3}
+              />
+              <FloatingElements />
+            </Suspense>
             
             {/* Custom Cursor - Only on desktop */}
-            {!isMobile && <CustomCursor />}
+            {!isMobile && (
+              <Suspense fallback={null}>
+                <CustomCursor />
+              </Suspense>
+            )}
             
             {/* Main Content */}
             <Header />
             <main>
               <Hero />
-              <About />
-              <Skills />
-              <Projects />
-              <Contact />
+              <Suspense fallback={<div style={{height: 200}} />}> 
+                <About />
+                <Skills />
+                <Projects />
+                <Contact />
+              </Suspense>
             </main>
             
             {/* Scroll to top button */}

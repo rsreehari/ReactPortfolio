@@ -44,6 +44,9 @@ main {
 section {
   padding: 100px 0;
   position: relative;
+  /* Performance: skip rendering offscreen content */
+  content-visibility: auto;
+  contain-intrinsic-size: 600px;
 }
 
 .container {

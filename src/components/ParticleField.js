@@ -11,6 +11,8 @@ const ParticleField = ({
 }) => {
   const canvasRef = useRef(null);
   const animationRef = useRef(null);
+  const isRunningRef = useRef(true);
+  const lastFrameTimeRef = useRef(0);
   const mouseRef = useRef({ x: 0, y: 0 });
   const particlesRef = useRef([]);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
@@ -120,12 +122,20 @@ const ParticleField = ({
   };
 
   // Animation loop
-  const animate = () => {
+  const animate = (ts = 0) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    if (!isRunningRef.current) return;
 
     const ctx = canvas.getContext('2d');
     const particles = particlesRef.current;
+    // Cap FPS ~30
+    const last = lastFrameTimeRef.current || 0;
+    if (ts - last < 33) {
+      animationRef.current = requestAnimationFrame(animate);
+      return;
+    }
+    lastFrameTimeRef.current = ts;
 
     // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -161,13 +171,10 @@ const ParticleField = ({
     }
   }, [interactive]);
 
-  // Handle resize
+  // Handle resize + devicePixelRatio
   useEffect(() => {
     const handleResize = () => {
-      setDimensions({
-        width: window.innerWidth,
-        height: window.innerHeight
-      });
+      setDimensions({ width: window.innerWidth, height: window.innerHeight });
     };
 
     handleResize();
@@ -180,21 +187,43 @@ const ParticleField = ({
     const canvas = canvasRef.current;
     if (!canvas || dimensions.width === 0) return;
 
-    canvas.width = dimensions.width;
-    canvas.height = dimensions.height;
+    // Manage DPR for crispness without overwork
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    canvas.width = Math.floor(dimensions.width * dpr);
+    canvas.height = Math.floor(dimensions.height * dpr);
+    canvas.style.width = dimensions.width + 'px';
+    canvas.style.height = dimensions.height + 'px';
+    const ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
     // Initialize particles
     particlesRef.current = initParticles(canvas);
 
     // Start animation
-    animate();
+    isRunningRef.current = true;
+    animationRef.current = requestAnimationFrame(animate);
 
     return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+      isRunningRef.current = false;
     };
   }, [dimensions, particleCount]);
+
+  // Pause when tab hidden to save CPU
+  useEffect(() => {
+    const onVisibility = () => {
+      if (document.hidden) {
+        isRunningRef.current = false;
+        if (animationRef.current) cancelAnimationFrame(animationRef.current);
+      } else {
+        isRunningRef.current = true;
+        lastFrameTimeRef.current = 0;
+        animationRef.current = requestAnimationFrame(animate);
+      }
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => document.removeEventListener('visibilitychange', onVisibility);
+  }, []);
 
   return (
     <motion.canvas
