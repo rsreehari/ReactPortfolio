@@ -57,13 +57,13 @@ const Contact = () => {
     {
       icon: <FiMail />,
       title: "Email",
-      value: "rsreehari@example.com",
-      link: "mailto:rsreehari@example.com"
+      value: "rsreehari091@gmail.com",
+      link: "mailto:rsreehari091@gmail.com"
     },
     {
       icon: <FiMapPin />,
       title: "Location",
-      value: "Karunagappally, Kerala, India",
+      value: "Varkala, Kerala, India",
       link: null
     },
     {

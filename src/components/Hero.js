@@ -395,7 +395,7 @@ const Hero = () => {
                 </MagneticButton>
                 <MagneticButton>
                   <motion.a
-                    href="mailto:rsreehari@example.com"
+                    href="mailto:rsreehari091@gmail.com"
                     className="social-link"
                     whileHover={{ y: -3 }}
                     whileTap={{ scale: 0.9 }}
