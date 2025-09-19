@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FiGithub, FiExternalLink, FiCode, FiSmartphone, FiGlobe } from 'react-icons/fi';
 import TextReveal from './TextReveal';
+import TextScramble from './TextScramble';
 import ScrollReveal from './ScrollReveal';
 import InteractiveCard from './InteractiveCard';
 import MagneticButton from './MagneticButton';
@@ -73,7 +74,7 @@ const Projects = () => {
         >
           <ScrollReveal direction="up" delay={0.2}>
             <div className="projects-header">
-              <TextReveal>Featured Projects</TextReveal>
+              <TextReveal><TextScramble>Featured Projects</TextScramble></TextReveal>
               <p className="section-subtitle">
                 A showcase of my recent work and ongoing learning projects
               </p>

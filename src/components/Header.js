@@ -80,6 +80,17 @@ const Header = () => {
           >
             Contact
           </motion.button>
+          {/* Performance Mode Toggle */}
+          <motion.button
+            className="nav-link perf-toggle"
+            onClick={() => window.dispatchEvent(new Event('togglePerformanceMode'))}
+            title="Toggle Performance Mode"
+            aria-label="Toggle Performance Mode"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            ⚡
+          </motion.button>
         </nav>
       </div>
     </motion.header>

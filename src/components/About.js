@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FiCode, FiSmartphone, FiGlobe, FiZap } from 'react-icons/fi';
 import TextReveal from './TextReveal';
+import TextScramble from './TextScramble';
 import ScrollReveal from './ScrollReveal';
 import InteractiveCard from './InteractiveCard';
 import './About.css';
@@ -65,7 +66,7 @@ const About = () => {
         >
           <ScrollReveal direction="up" delay={0.2}>
             <div className="about-header">
-              <TextReveal>About Me</TextReveal>
+              <TextReveal><TextScramble>About Me</TextScramble></TextReveal>
               <p className="section-subtitle">
                 Get to know more about my journey and interests
               </p>

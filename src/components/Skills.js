@@ -9,6 +9,7 @@ import {
   FiTool
 } from 'react-icons/fi';
 import TextReveal from './TextReveal';
+import TextScramble from './TextScramble';
 import ScrollReveal from './ScrollReveal';
 import InteractiveCard from './InteractiveCard';
 import './Skills.css';
@@ -90,7 +91,7 @@ const Skills = () => {
         >
           <ScrollReveal direction="up" delay={0.2}>
             <div className="skills-header">
-              <TextReveal>Skills & Technologies</TextReveal>
+              <TextReveal><TextScramble>Skills & Technologies</TextScramble></TextReveal>
               <p className="section-subtitle">
                 Technologies I work with and tools I use to bring ideas to life
               </p>
