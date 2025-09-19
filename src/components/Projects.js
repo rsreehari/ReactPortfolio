@@ -84,7 +84,13 @@ const Projects = () => {
           <div className="projects-grid">
             {projects.map((project, index) => (
               <ScrollReveal key={index} direction="up" delay={0.4 + index * 0.1}>
-                <InteractiveCard className="project-card glass-effect" enableEffects={false}>
+                <InteractiveCard
+                  className="project-card glass-effect"
+                  enableEffects={false}
+                  tabIndex={0}
+                  role="article"
+                  aria-label={`${project.title} project card`}
+                >
                   <div className="project-header">
                     <div className="project-icon">{project.icon}</div>
                     <div className="project-status">

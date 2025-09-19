@@ -76,17 +76,12 @@ function App() {
     };
   }, []);
 
-  // Toggle body class for custom cursor only when enabled
+  // Ensure default cursor is used globally
   useEffect(() => {
-    const enableCustom = !isMobile && !(prefersReducedMotion || performanceMode);
     const body = document.body;
-    if (enableCustom) {
-      body.classList.add('use-custom-cursor');
-    } else {
-      body.classList.remove('use-custom-cursor');
-    }
+    body.classList.remove('use-custom-cursor');
     return () => body.classList.remove('use-custom-cursor');
-  }, [isMobile, prefersReducedMotion, performanceMode]);
+  }, []);
 
   const pageVariants = {
     initial: {
@@ -177,12 +172,7 @@ function App() {
               )}
             </Suspense>
             
-            {/* Custom Cursor - Only on desktop and when motion is allowed */}
-            {!isMobile && !(prefersReducedMotion || performanceMode) && (
-              <Suspense fallback={null}>
-                <CustomCursor />
-              </Suspense>
-            )}
+            {/* Custom Cursor disabled globally */}
             
             {/* Main Content */}
             <Header />

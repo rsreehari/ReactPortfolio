@@ -112,6 +112,9 @@
   color: rgba(255, 255, 255, 0.8);
   line-height: 1.6;
   margin-bottom: 1.5rem;
+  transform: translateY(6px);
+  opacity: 0.95;
+  transition: transform 200ms ease, opacity 200ms ease;
 }
 
 .project-tech {
@@ -119,6 +122,8 @@
   flex-wrap: wrap;
   gap: 0.5rem;
   margin-bottom: 2rem;
+  transform: translateY(6px);
+  transition: transform 200ms ease;
 }
 
 .tech-tag {
@@ -133,6 +138,8 @@
 .project-links {
   display: flex;
   gap: 1rem;
+  transform: translateY(6px);
+  transition: transform 200ms ease;
 }
 
 .project-link {
@@ -155,6 +162,15 @@
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.3);
   color: #ffffff;
+}
+
+/* Icon nudge */
+.project-link svg {
+  transition: transform 200ms ease;
+}
+
+.project-link:hover svg {
+  transform: translateX(2px);
 }
 
 /* Underline sweep */
@@ -185,6 +201,14 @@
   background: rgba(255,255,255,0.14);
   border-color: rgba(255,255,255,0.28);
   color: #ffffff;
+}
+
+/* Hover reveal group */
+.project-card:hover .project-description,
+.project-card:hover .project-tech,
+.project-card:hover .project-links {
+  transform: translateY(0);
+  opacity: 1;
 }
 
 /* Respect reduced motion */
