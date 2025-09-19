@@ -195,24 +195,19 @@ p {
   width: 50px;
   height: 50px;
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
-  color: var(--text);
+  color: rgba(255, 255, 255, 0.8);
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
   z-index: 1000;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
 }
 
 .scroll-to-top:hover {
   background: rgba(255, 255, 255, 0.15);
   border-color: rgba(255, 255, 255, 0.3);
   color: #ffffff;
-  box-shadow: 0 8px 25px rgba(120, 119, 198, 0.2);
-  transform: translateY(-2px);
 }
 
 .scroll-to-top svg {
@@ -283,6 +278,54 @@ p {
   .scroll-to-top:hover {
     transform: none;
   }
+}
+
+/* Error Boundary Styles */
+.error-fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  padding: 2rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.error-fallback h2 {
+  color: #ef4444;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.error-fallback p {
+  margin-bottom: 2rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+}
+
+.error-fallback button {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #7877c6 0%, #ff77c6 100%);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.error-fallback button:hover {
+  transform: translateY(-2px);
+}
+
+/* Loading Spinner */
+.loading-spinner-small {
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-top: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
 }
 
 /* High contrast mode support */

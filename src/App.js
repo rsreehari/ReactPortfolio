@@ -4,13 +4,85 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import AuroraBackground from './components/AuroraBackground';
 import './App.css';
-const About = lazy(() => import('./components/About'));
-const Skills = lazy(() => import('./components/Skills'));
-const Projects = lazy(() => import('./components/Projects'));
-const Contact = lazy(() => import('./components/Contact'));
-const FloatingElements = lazy(() => import('./components/FloatingElements'));
-const CustomCursor = lazy(() => import('./components/CustomCursor'));
-const ParticleField = lazy(() => import('./components/ParticleField'));
+
+// Lazy load components with error handling
+const About = lazy(() => 
+  import('./components/About').catch(err => {
+    console.error('Failed to load About component:', err);
+    return { default: () => <div>Error loading About section</div> };
+  })
+);
+const Skills = lazy(() => 
+  import('./components/Skills').catch(err => {
+    console.error('Failed to load Skills component:', err);
+    return { default: () => <div>Error loading Skills section</div> };
+  })
+);
+const Projects = lazy(() => 
+  import('./components/Projects').catch(err => {
+    console.error('Failed to load Projects component:', err);
+    return { default: () => <div>Error loading Projects section</div> };
+  })
+);
+const Contact = lazy(() => 
+  import('./components/Contact').catch(err => {
+    console.error('Failed to load Contact component:', err);
+    return { default: () => <div>Error loading Contact section</div> };
+  })
+);
+const FloatingElements = lazy(() => 
+  import('./components/FloatingElements').catch(err => {
+    console.error('Failed to load FloatingElements component:', err);
+    return { default: () => null };
+  })
+);
+const ParticleField = lazy(() => 
+  import('./components/ParticleField').catch(err => {
+    console.error('Failed to load ParticleField component:', err);
+    return { default: () => null };
+  })
+);
+
+// Error Boundary Component
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('Error Boundary caught an error:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="error-fallback">
+          <h2>Something went wrong.</h2>
+          <p>We're sorry for the inconvenience. Please refresh the page to try again.</p>
+          <button onClick={() => window.location.reload()}>Refresh Page</button>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
+// Loading fallback component
+const LoadingFallback = ({ height = 200 }) => (
+  <div style={{ height, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <motion.div
+      className="loading-spinner-small"
+      animate={{ rotate: 360 }}
+      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+    />
+  </div>
+);
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -121,97 +193,123 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <AnimatePresence mode="wait">
-        {isLoading ? (
-          <motion.div
-            key="loading"
-            className="loading-screen"
-            variants={loadingVariants}
-            initial="initial"
-            exit="exit"
-          >
-            <motion.div 
-              className="loading-content"
-              animate={{
-                scale: [1, 1.1, 1],
-                opacity: [0.7, 1, 0.7],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
+    <ErrorBoundary>
+      <div className="App">
+        <AnimatePresence mode="wait">
+          {isLoading ? (
+            <motion.div
+              key="loading"
+              className="loading-screen"
+              variants={loadingVariants}
+              initial="initial"
+              exit="exit"
             >
-              <div className="loading-logo">RS</div>
-              <div className="loading-text">Crafting Digital Experiences</div>
+              <motion.div 
+                className="loading-content"
+                animate={{
+                  scale: [1, 1.1, 1],
+                  opacity: [0.7, 1, 0.7],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                <div className="loading-logo">RS</div>
+                <div className="loading-text">Crafting Digital Experiences</div>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        ) : (
-          <motion.div
-            key="main"
-            variants={pageVariants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-          >
-            {/* Background Effects */}
-            <Suspense fallback={null}>
-              <AuroraBackground />
-              {!(prefersReducedMotion || performanceMode) && (
-                <>
-                  <ParticleField 
-                    particleCount={isMobile ? 16 : 32}
-                    interactive={!isMobile}
-                    mouseRadius={80}
-                    connectionDistance={80}
-                    particleSpeed={0.22}
-                  />
-                  <FloatingElements />
-                </>
-              )}
-            </Suspense>
-            
-            {/* Custom Cursor disabled globally */}
-            
-            {/* Main Content */}
-            <Header />
-            <main>
-              <Hero externalReduced={prefersReducedMotion || performanceMode} />
-              <Suspense fallback={<div style={{height: 200}} />}> 
-                <About />
-                <Skills />
-                <Projects />
-                <Contact />
-              </Suspense>
-            </main>
-            
-            {/* Scroll to top button */}
-            <motion.button
-              className="scroll-to-top"
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              initial={{ opacity: 0, y: 100 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 3, duration: 0.6 }}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              data-cursor="pointer"
-              data-cursor-text="Top"
+          ) : (
+            <motion.div
+              key="main"
+              variants={pageVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path 
-                  d="M12 19V5M5 12L12 5L19 12" 
-                  stroke="currentColor" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </motion.button>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+              {/* Background Effects */}
+              <ErrorBoundary>
+                <Suspense fallback={null}>
+                  <AuroraBackground />
+                  {!(prefersReducedMotion || performanceMode) && (
+                    <>
+                      <ParticleField 
+                        particleCount={isMobile ? 16 : 32}
+                        interactive={!isMobile}
+                        mouseRadius={80}
+                        connectionDistance={80}
+                        particleSpeed={0.22}
+                      />
+                      <FloatingElements />
+                    </>
+                  )}
+                </Suspense>
+              </ErrorBoundary>
+              
+              {/* Main Content */}
+              <ErrorBoundary>
+                <Header />
+              </ErrorBoundary>
+              
+              <main>
+                <ErrorBoundary>
+                  <Hero externalReduced={prefersReducedMotion || performanceMode} />
+                </ErrorBoundary>
+                
+                <ErrorBoundary>
+                  <Suspense fallback={<LoadingFallback height={400} />}> 
+                    <About />
+                  </Suspense>
+                </ErrorBoundary>
+                
+                <ErrorBoundary>
+                  <Suspense fallback={<LoadingFallback height={400} />}> 
+                    <Skills />
+                  </Suspense>
+                </ErrorBoundary>
+                
+                <ErrorBoundary>
+                  <Suspense fallback={<LoadingFallback height={400} />}> 
+                    <Projects />
+                  </Suspense>
+                </ErrorBoundary>
+                
+                <ErrorBoundary>
+                  <Suspense fallback={<LoadingFallback height={400} />}> 
+                    <Contact />
+                  </Suspense>
+                </ErrorBoundary>
+              </main>
+              
+              {/* Scroll to top button */}
+              <motion.button
+                className="scroll-to-top"
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                initial={{ opacity: 0, y: 100 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 3, duration: 0.6 }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                data-cursor="pointer"
+                data-cursor-text="Top"
+                aria-label="Scroll to top"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path 
+                    d="M12 19V5M5 12L12 5L19 12" 
+                    stroke="currentColor" 
+                    strokeWidth="2" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </motion.button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </ErrorBoundary>
   );
 }
 

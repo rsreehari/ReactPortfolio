@@ -35,30 +35,33 @@ const Projects = () => {
   const projects = [
     {
       title: "React Native Learning App",
-      description: "Currently building a cross-platform mobile application using React Native. This project showcases my journey in mobile development with modern UI components and smooth animations.",
-      tech: ["React Native", "JavaScript", "Expo", "AsyncStorage"],
+      description: "A comprehensive cross-platform mobile application built with React Native and Expo. Features include user authentication, data persistence with AsyncStorage, smooth navigation, and responsive UI components. Implements modern mobile development patterns and best practices.",
+      tech: ["React Native", "Expo", "JavaScript", "AsyncStorage", "React Navigation", "Styled Components"],
       icon: <FiSmartphone />,
       status: "In Progress",
-      github: "#",
-      demo: "#"
+      github: "https://github.com/rsreehari",
+      demo: "#",
+      features: ["Cross-platform compatibility", "Offline data storage", "Smooth animations", "Modern UI/UX"]
     },
     {
-      title: "Portfolio Website",
-      description: "A modern, responsive portfolio website built with React and Framer Motion. Features dark theme, smooth animations, and optimized performance inspired by React Bits design.",
-      tech: ["React", "Framer Motion", "CSS3", "Responsive Design"],
+      title: "Interactive Portfolio Website",
+      description: "A modern, fully responsive portfolio website showcasing advanced React concepts and smooth animations. Built with performance optimization in mind, featuring lazy loading, custom hooks, and interactive elements powered by Framer Motion.",
+      tech: ["React.js", "Framer Motion", "CSS3", "JavaScript", "Responsive Design", "Performance Optimization"],
       icon: <FiGlobe />,
       status: "Completed",
-      github: "https://github.com/rsreehari",
-      demo: "#"
+      github: "https://github.com/rsreehari/Portfolio2",
+      demo: window.location.origin,
+      features: ["Dark theme design", "Smooth scroll animations", "Interactive components", "Mobile-first approach"]
     },
     {
-      title: "Web Development Projects",
-      description: "Collection of web development projects showcasing various technologies and problem-solving approaches. Includes interactive components and modern design patterns.",
-      tech: ["HTML5", "CSS3", "JavaScript", "React", "Node.js"],
+      title: "Full-Stack Web Applications",
+      description: "Collection of full-stack web applications demonstrating proficiency in both frontend and backend development. Includes RESTful API integration, database management, and modern authentication systems.",
+      tech: ["React.js", "Node.js", "Express.js", "MySQL", "Firebase", "RESTful APIs"],
       icon: <FiCode />,
       status: "Ongoing",
       github: "https://github.com/rsreehari",
-      demo: "#"
+      demo: "#",
+      features: ["Database integration", "User authentication", "API development", "Responsive design"]
     }
   ];
 
@@ -101,6 +104,18 @@ const Projects = () => {
                   </div>
                   <h3>{project.title}</h3>
                   <p className="project-description">{project.description}</p>
+                  
+                  {project.features && (
+                    <div className="project-features">
+                      <h4>Key Features:</h4>
+                      <ul>
+                        {project.features.map((feature, featureIndex) => (
+                          <li key={featureIndex}>{feature}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  
                   <div className="project-tech">
                     {project.tech.map((tech, techIndex) => (
                       <span key={techIndex} className="tech-tag">{tech}</span>
@@ -114,7 +129,12 @@ const Projects = () => {
                       </a>
                     </MagneticButton>
                     <MagneticButton>
-                      <a href={project.demo} target="_blank" rel="noopener noreferrer" className="project-link">
+                      <a 
+                        href={project.demo} 
+                        target={project.demo === window.location.origin ? "_self" : "_blank"} 
+                        rel="noopener noreferrer" 
+                        className="project-link"
+                      >
                         <FiExternalLink />
                         <span>Demo</span>
                       </a>

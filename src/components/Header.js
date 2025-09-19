@@ -37,22 +37,27 @@ const Header = () => {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
+      role="banner"
     >
       <div className="container">
         <motion.div
           className="logo"
           whileHover={{ scale: 1.05 }}
           transition={{ type: "spring", stiffness: 400, damping: 10 }}
+          role="img"
+          aria-label="R Sreehari Portfolio Logo"
         >
           <span className="text-gradient">R Sreehari</span>
         </motion.div>
 
-        <nav className="nav">
+        <nav className="nav" role="navigation" aria-label="Main navigation">
           <motion.button
             className="nav-link"
             onClick={() => scrollToSection('about')}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            aria-label="Navigate to About section"
+            type="button"
           >
             About
           </motion.button>
@@ -61,6 +66,8 @@ const Header = () => {
             onClick={() => scrollToSection('skills')}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            aria-label="Navigate to Skills section"
+            type="button"
           >
             Skills
           </motion.button>
@@ -69,6 +76,8 @@ const Header = () => {
             onClick={() => scrollToSection('projects')}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            aria-label="Navigate to Projects section"
+            type="button"
           >
             Projects
           </motion.button>
@@ -77,6 +86,8 @@ const Header = () => {
             onClick={() => scrollToSection('contact')}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            aria-label="Navigate to Contact section"
+            type="button"
           >
             Contact
           </motion.button>
@@ -84,12 +95,13 @@ const Header = () => {
           <motion.button
             className="nav-link perf-toggle"
             onClick={() => window.dispatchEvent(new Event('togglePerformanceMode'))}
-            title="Toggle Performance Mode"
-            aria-label="Toggle Performance Mode"
+            title="Toggle Performance Mode - Reduces animations for better performance"
+            aria-label="Toggle Performance Mode to reduce animations"
+            type="button"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            ⚡
+            <span aria-hidden="true">⚡</span>
           </motion.button>
         </nav>
       </div>

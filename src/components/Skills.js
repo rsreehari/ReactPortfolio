@@ -42,41 +42,44 @@ const Skills = () => {
     {
       icon: <FiCode />,
       title: "Programming Languages",
-      skills: ["JavaScript", "Python", "Java", "C++", "HTML/CSS"]
+      skills: ["JavaScript (ES6+)", "Python", "Java", "C++", "HTML5", "CSS3", "TypeScript"]
     },
     {
       icon: <FiGlobe />,
-      title: "Web Development",
-      skills: ["React", "Node.js","Responsive Design"]
+      title: "Frontend Development",
+      skills: ["React.js", "React Hooks", "JSX", "Responsive Design", "CSS Grid & Flexbox", "Framer Motion", "Material-UI", "Bootstrap"]
     },
     {
       icon: <FiSmartphone />,
       title: "Mobile Development",
-      skills: ["React Native", "Mobile UI/UX", "Cross-platform Development"]
+      skills: ["React Native", "Expo", "AsyncStorage", "Mobile UI/UX", "Cross-platform Development", "Touch Gestures"]
     },
     {
       icon: <FiDatabase />,
-      title: "Database & Backend",
-      skills: ["MySQL", "Firebase"]
+      title: "Backend & Database",
+      skills: ["Node.js", "Express.js", "MySQL", "Firebase", "RESTful APIs", "JSON", "MongoDB (Learning)"]
     },
     {
       icon: <FiGitBranch />,
-      title: "Version Control",
-      skills: ["Git", "GitHub", "Collaborative Development", "Code Review"]
+      title: "Version Control & Deployment",
+      skills: ["Git", "GitHub", "Netlify", "Vercel", "CI/CD", "Code Review", "Collaborative Development"]
     },
     {
       icon: <FiTool />,
-      title: "Tools & Technologies",
-      skills: ["VS Code","NPM/Yarn"]
+      title: "Tools & Development",
+      skills: ["VS Code", "NPM/Yarn", "Webpack", "Chrome DevTools", "Figma", "Postman", "ESLint", "Prettier"]
     }
   ];
 
   const currentlyLearning = [
-    "React Native Advanced Concepts",
-    "State Management (Redux)",
-    "TypeScript",
-    "GraphQL",
-    "Docker & DevOps"
+    "React Native Advanced Navigation",
+    "Redux Toolkit & State Management",
+    "TypeScript for React",
+    "Next.js Framework",
+    "GraphQL & Apollo Client",
+    "Docker & DevOps",
+    "MongoDB & Mongoose",
+    "AWS Cloud Services"
   ];
 
   return (

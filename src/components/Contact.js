@@ -13,6 +13,9 @@ const Contact = () => {
     email: '',
     message: ''
   });
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null); // 'success', 'error', or null
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -37,20 +40,82 @@ const Contact = () => {
     }
   };
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+  const validateForm = () => {
+    const errors = {};
+    
+    // Name validation
+    if (!formData.name.trim()) {
+      errors.name = 'Name is required';
+    } else if (formData.name.trim().length < 2) {
+      errors.name = 'Name must be at least 2 characters';
+    }
+    
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim()) {
+      errors.email = 'Email is required';
+    } else if (!emailRegex.test(formData.email)) {
+      errors.email = 'Please enter a valid email address';
+    }
+    
+    // Message validation
+    if (!formData.message.trim()) {
+      errors.message = 'Message is required';
+    } else if (formData.message.trim().length < 10) {
+      errors.message = 'Message must be at least 10 characters';
+    }
+    
+    return errors;
   };
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+    
+    // Clear error for this field when user starts typing
+    if (formErrors[name]) {
+      setFormErrors({
+        ...formErrors,
+        [name]: ''
+      });
+    }
+    
+    // Clear submit status when user modifies form
+    if (submitStatus) {
+      setSubmitStatus(null);
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // For now, just log the form data
-    console.log('Form submitted:', formData);
-    // You can integrate with a form service like Formspree, Netlify Forms, etc.
-    alert('Thank you for your message! I\'ll get back to you soon.');
-    setFormData({ name: '', email: '', message: '' });
+    
+    const errors = validateForm();
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+    
+    setIsSubmitting(true);
+    setFormErrors({});
+    
+    try {
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // Here you would integrate with a form service like Formspree, Netlify Forms, etc.
+      console.log('Form submitted:', formData);
+      
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
@@ -161,6 +226,30 @@ const Contact = () => {
             <ScrollReveal direction="right" delay={0.4}>
               <InteractiveCard className="glass-effect form-card">
                 <h3>Send a Message</h3>
+                
+                {/* Success/Error Messages */}
+                {submitStatus === 'success' && (
+                  <motion.div
+                    className="form-message success"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    ✅ Thank you for your message! I'll get back to you soon.
+                  </motion.div>
+                )}
+                
+                {submitStatus === 'error' && (
+                  <motion.div
+                    className="form-message error"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    ❌ Sorry, there was an error sending your message. Please try again.
+                  </motion.div>
+                )}
+                
                 <form onSubmit={handleSubmit} className="contact-form">
                   <div className="form-group">
                     <input
@@ -169,10 +258,21 @@ const Contact = () => {
                       placeholder="Your Name"
                       value={formData.name}
                       onChange={handleChange}
-                      required
-                      className="form-input"
+                      className={`form-input ${formErrors.name ? 'error' : ''}`}
+                      disabled={isSubmitting}
                     />
+                    {formErrors.name && (
+                      <motion.span
+                        className="error-text"
+                        initial={{ opacity: 0, y: -5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        {formErrors.name}
+                      </motion.span>
+                    )}
                   </div>
+                  
                   <div className="form-group">
                     <input
                       type="email"
@@ -180,28 +280,64 @@ const Contact = () => {
                       placeholder="Your Email"
                       value={formData.email}
                       onChange={handleChange}
-                      required
-                      className="form-input"
+                      className={`form-input ${formErrors.email ? 'error' : ''}`}
+                      disabled={isSubmitting}
                     />
+                    {formErrors.email && (
+                      <motion.span
+                        className="error-text"
+                        initial={{ opacity: 0, y: -5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        {formErrors.email}
+                      </motion.span>
+                    )}
                   </div>
+                  
                   <div className="form-group">
                     <textarea
                       name="message"
                       placeholder="Your Message"
                       value={formData.message}
                       onChange={handleChange}
-                      required
                       rows="5"
-                      className="form-input form-textarea"
+                      className={`form-input form-textarea ${formErrors.message ? 'error' : ''}`}
+                      disabled={isSubmitting}
                     ></textarea>
+                    {formErrors.message && (
+                      <motion.span
+                        className="error-text"
+                        initial={{ opacity: 0, y: -5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        {formErrors.message}
+                      </motion.span>
+                    )}
                   </div>
+                  
                   <MagneticButton>
                     <button
                       type="submit"
-                      className="submit-button button-primary"
+                      className={`submit-button button-primary ${isSubmitting ? 'loading' : ''}`}
+                      disabled={isSubmitting}
                     >
-                      <FiSend />
-                      <span>Send Message</span>
+                      {isSubmitting ? (
+                        <>
+                          <motion.div
+                            className="loading-spinner"
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                          />
+                          <span>Sending...</span>
+                        </>
+                      ) : (
+                        <>
+                          <FiSend />
+                          <span>Send Message</span>
+                        </>
+                      )}
                     </button>
                   </MagneticButton>
                 </form>
