@@ -47,7 +47,7 @@ const Skills = () => {
     {
       icon: <FiGlobe />,
       title: "Web Development",
-      skills: ["React", "Node.js", "Express", "REST APIs", "Responsive Design"]
+      skills: ["React", "Node.js","Responsive Design"]
     },
     {
       icon: <FiSmartphone />,
@@ -57,7 +57,7 @@ const Skills = () => {
     {
       icon: <FiDatabase />,
       title: "Database & Backend",
-      skills: ["MongoDB", "MySQL", "Firebase", "API Development"]
+      skills: ["MySQL", "Firebase"]
     },
     {
       icon: <FiGitBranch />,
@@ -67,7 +67,7 @@ const Skills = () => {
     {
       icon: <FiTool />,
       title: "Tools & Technologies",
-      skills: ["VS Code", "Postman", "Chrome DevTools", "NPM/Yarn"]
+      skills: ["VS Code","NPM/Yarn"]
     }
   ];
 

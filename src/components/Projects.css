@@ -21,15 +21,34 @@
 
 .project-card {
   padding: 2.5rem;
-  transition: all 0.3s ease;
+  transition: transform 220ms ease, box-shadow 220ms ease, background 220ms ease, border-color 220ms ease;
   cursor: pointer;
   position: relative;
   overflow: hidden;
 }
 
+/* Border glow accent */
+.project-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(120,119,198,0.35), rgba(255,119,198,0.28));
+  opacity: 0;
+  transition: opacity 220ms ease;
+  pointer-events: none;
+}
+
+/* Soft lift + shadow bloom */
 .project-card:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.25);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.project-card:hover::before {
+  opacity: 1;
 }
 
 .project-header {
@@ -128,13 +147,55 @@
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: 500;
-  transition: all 0.3s ease;
+  transition: color 200ms ease, border-color 200ms ease, background 200ms ease;
+  position: relative;
 }
 
 .project-link:hover {
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.3);
   color: #ffffff;
+}
+
+/* Underline sweep */
+.project-link::after {
+  content: '';
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 8px;
+  height: 2px;
+  background: linear-gradient(90deg, #7877c6, #ff77c6);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 220ms ease;
+  opacity: 0.85;
+}
+
+.project-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* Tag chips subtle hover */
+.tech-tag {
+  transition: background 200ms ease, border-color 200ms ease, color 200ms ease;
+}
+
+.tech-tag:hover {
+  background: rgba(255,255,255,0.14);
+  border-color: rgba(255,255,255,0.28);
+  color: #ffffff;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .project-card:hover {
+    transform: none;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.2);
+  }
+  .project-link::after {
+    transition: none;
+  }
 }
 
 .more-projects {
