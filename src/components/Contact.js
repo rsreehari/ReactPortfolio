@@ -97,6 +97,22 @@ const Contact = () => {
                 Let's connect and discuss opportunities, projects, or just have a chat about technology
               </p>
             </div>
+
+          {/* Minimal Connect strip above footer */}
+          <div className="connect-strip" aria-label="Connect with me">
+            <span className="connect-label">Connect with me</span>
+            <div className="connect-icons">
+              <a href="https://github.com/rsreehari" target="_blank" rel="noopener noreferrer" className="connect-link" aria-label="GitHub">
+                <FiGithub />
+              </a>
+              <a href="https://www.linkedin.com/in/rsreehari0/" target="_blank" rel="noopener noreferrer" className="connect-link" aria-label="LinkedIn">
+                <FiLinkedin />
+              </a>
+              <a href="mailto:rsreehari091@gmail.com" className="connect-link" aria-label="Email">
+                <FiMail />
+              </a>
+            </div>
+          </div>
           </ScrollReveal>
 
           <div className="contact-grid">

@@ -124,8 +124,8 @@
   transform: translate(-50%, -50%) scale(0);
 }
 
-/* Hide default cursor */
-body {
+/* Hide default cursor only when explicitly enabled */
+body.use-custom-cursor {
   cursor: none;
 }
 

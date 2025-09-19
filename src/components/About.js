@@ -74,7 +74,7 @@ const About = () => {
 
           <div className="about-grid">
             <ScrollReveal direction="left" delay={0.4}>
-              <InteractiveCard className="glass-effect about-card">
+              <InteractiveCard className="glass-effect about-card" enableEffects={false}>
                 <h3>My Journey</h3>
                 <p>
                   I'm R Sreehari, a Computer Science Engineering student at the College of 
@@ -97,7 +97,7 @@ const About = () => {
             <div className="interests-grid">
               {interests.map((interest, index) => (
                 <ScrollReveal key={index} direction="right" delay={0.6 + index * 0.1}>
-                  <InteractiveCard className="interest-card glass-effect" intensity={0.15}>
+                  <InteractiveCard className="interest-card glass-effect" intensity={0.15} enableEffects={false}>
                     <div className="interest-icon">
                       {interest.icon}
                     </div>

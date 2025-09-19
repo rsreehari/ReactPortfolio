@@ -1,5 +1,5 @@
 .contact {
-  padding: 120px 0 0;
+  padding: 0; /* rely on global section padding from App.css */
 }
 
 .contact-content {
@@ -215,7 +215,7 @@
 
 @media (max-width: 768px) {
   .contact {
-    padding: 80px 0 0;
+    padding: 0; /* rely on global section padding from App.css */
   }
   
   .info-card,

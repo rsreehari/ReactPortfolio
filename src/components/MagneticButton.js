@@ -14,6 +14,8 @@ const MagneticButton = ({
   const buttonRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const [isSmall, setIsSmall] = useState(false);
   
   // Motion values for smooth magnetic effect
   const mouseX = useMotionValue(0);
@@ -31,30 +33,38 @@ const MagneticButton = ({
   const rotateX = useTransform(springY, [-range, range], [5, -5]);
   const rotateY = useTransform(springX, [-range, range], [-5, 5]);
   
+  // Respect reduced motion and small screens
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const onChange = () => setReducedMotion(media.matches);
+    onChange();
+    media.addEventListener?.('change', onChange);
+    const onResize = () => setIsSmall(window.innerWidth <= 768);
+    onResize();
+    window.addEventListener('resize', onResize);
+    return () => {
+      media.removeEventListener?.('change', onChange);
+      window.removeEventListener('resize', onResize);
+    };
+  }, []);
+
+  const autoDisabled = disabled || reducedMotion || isSmall;
+
   useEffect(() => {
     const button = buttonRef.current;
-    if (!button || disabled) return;
+    if (!button || autoDisabled) return;
 
     const handleMouseMove = (e) => {
       const rect = button.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
-      
       const deltaX = e.clientX - centerX;
       const deltaY = e.clientY - centerY;
-      
       const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-      
       if (distance < range) {
         setMousePosition({ x: deltaX, y: deltaY });
         mouseX.set(deltaX);
         mouseY.set(deltaY);
-        
-        if (!isHovered) {
-          setIsHovered(true);
-        }
-      } else if (isHovered) {
-        handleMouseLeave();
       }
     };
 
@@ -63,14 +73,15 @@ const MagneticButton = ({
       setMousePosition({ x: 0, y: 0 });
       mouseX.set(0);
       mouseY.set(0);
+      document.removeEventListener('mousemove', handleMouseMove);
     };
 
     const handleMouseEnter = () => {
       setIsHovered(true);
+      // Attach mousemove only when hovered, detach on leave
+      document.addEventListener('mousemove', handleMouseMove);
     };
 
-    // Global mouse move listener for magnetic effect
-    document.addEventListener('mousemove', handleMouseMove);
     button.addEventListener('mouseleave', handleMouseLeave);
     button.addEventListener('mouseenter', handleMouseEnter);
 
@@ -79,7 +90,7 @@ const MagneticButton = ({
       button.removeEventListener('mouseleave', handleMouseLeave);
       button.removeEventListener('mouseenter', handleMouseEnter);
     };
-  }, [mouseX, mouseY, range, isHovered, disabled]);
+  }, [mouseX, mouseY, range, autoDisabled]);
 
   const hoverVariants = {
     rest: {
@@ -123,7 +134,7 @@ const MagneticButton = ({
   return (
     <motion.div
       ref={buttonRef}
-      className={`magnetic-button ${className} ${disabled ? 'disabled' : ''}`}
+      className={`magnetic-button ${className} ${autoDisabled ? 'disabled' : ''}`}
       variants={hoverVariants}
       initial="rest"
       whileHover="hover"
@@ -131,8 +142,8 @@ const MagneticButton = ({
       style={{
         x: magneticX,
         y: magneticY,
-        rotateX: disabled ? 0 : rotateX,
-        rotateY: disabled ? 0 : rotateY,
+        rotateX: autoDisabled ? 0 : rotateX,
+        rotateY: autoDisabled ? 0 : rotateY,
         transformStyle: "preserve-3d",
         transformOrigin: "center center"
       }}
@@ -172,7 +183,7 @@ const MagneticButton = ({
       </motion.div>
       
       {/* Particle effects for extra flair */}
-      {isHovered && (
+      {isHovered && !autoDisabled && (
         <>
           {[...Array(6)].map((_, i) => (
             <motion.div

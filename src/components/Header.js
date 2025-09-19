@@ -1,13 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import './Header.css';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const tickingRef = useRef(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      if (tickingRef.current) return;
+      tickingRef.current = true;
+      requestAnimationFrame(() => {
+        setIsScrolled(window.scrollY > 50);
+        tickingRef.current = false;
+      });
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -17,7 +23,11 @@ const Header = () => {
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      // Account for fixed header offset
+      const headerEl = document.querySelector('.header');
+      const headerOffset = headerEl ? headerEl.offsetHeight + 12 : 72;
+      const elementTop = element.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top: Math.max(0, elementTop - headerOffset), behavior: 'smooth' });
     }
   };
 

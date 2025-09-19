@@ -82,49 +82,32 @@ const Projects = () => {
 
           <div className="projects-grid">
             {projects.map((project, index) => (
-              <ScrollReveal key={index} direction="up" delay={0.4 + index * 0.2}>
-                <InteractiveCard className="project-card glass-effect" intensity={0.15}>
+              <ScrollReveal key={index} direction="up" delay={0.4 + index * 0.1}>
+                <InteractiveCard className="project-card glass-effect" enableEffects={false}>
                   <div className="project-header">
-                    <div className="project-icon">
-                      {project.icon}
-                    </div>
+                    <div className="project-icon">{project.icon}</div>
                     <div className="project-status">
                       <span className={`status-badge ${project.status.toLowerCase().replace(' ', '-')}`}>
                         {project.status}
                       </span>
                     </div>
                   </div>
-
                   <h3>{project.title}</h3>
                   <p className="project-description">{project.description}</p>
-
                   <div className="project-tech">
                     {project.tech.map((tech, techIndex) => (
-                      <span key={techIndex} className="tech-tag">
-                        {tech}
-                      </span>
+                      <span key={techIndex} className="tech-tag">{tech}</span>
                     ))}
                   </div>
-
                   <div className="project-links">
                     <MagneticButton>
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="project-link"
-                      >
+                      <a href={project.github} target="_blank" rel="noopener noreferrer" className="project-link">
                         <FiGithub />
                         <span>Code</span>
                       </a>
                     </MagneticButton>
                     <MagneticButton>
-                      <a
-                        href={project.demo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="project-link"
-                      >
+                      <a href={project.demo} target="_blank" rel="noopener noreferrer" className="project-link">
                         <FiExternalLink />
                         <span>Demo</span>
                       </a>

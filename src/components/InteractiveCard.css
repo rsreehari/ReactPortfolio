@@ -35,11 +35,11 @@
   pointer-events: none;
 }
 
-.interactive-card:hover .card-glow {
+.interactive-card.effects-on:hover .card-glow {
   opacity: 1;
 }
 
-.interactive-card:hover {
+.interactive-card.effects-on:hover {
   z-index: 10;
 }
 

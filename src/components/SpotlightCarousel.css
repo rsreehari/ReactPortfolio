@@ -1,0 +1,91 @@
+/* Spotlight Carousel with glare effect */
+.spotlight-carousel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.spotlight-scroller {
+  scroll-snap-type: x mandatory;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min(86vw, 420px);
+  gap: 1.25rem;
+  overflow-x: auto;
+  padding: 1rem 0.5rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.spotlight-slide {
+  scroll-snap-align: start;
+}
+
+.nav {
+  appearance: none;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #fff;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.nav:hover {
+  transform: scale(1.06);
+  background: rgba(255,255,255,0.12);
+}
+
+/* Card glare */
+.spotlight-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+}
+
+.spotlight-inner {
+  position: relative;
+  z-index: 2;
+  padding: 1.25rem;
+  height: 100%;
+}
+
+.spotlight-glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(180px 180px at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,0.25), rgba(255,255,255,0.06) 40%, transparent 60%);
+  mix-blend-mode: screen;
+  opacity: 0.35;
+  transition: opacity 0.2s ease;
+}
+
+.spotlight-card:hover .spotlight-glare {
+  opacity: 0.5;
+}
+
+/* Project-specific styling inside spotlight */
+.spotlight-card .project-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.spotlight-card h3 {
+  margin: 0.25rem 0 0.5rem 0;
+}
+
+.spotlight-card .project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.75rem 0;
+}

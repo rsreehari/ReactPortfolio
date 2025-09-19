@@ -198,7 +198,7 @@ p {
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--text);
   cursor: pointer;
   display: flex;
   align-items: center;

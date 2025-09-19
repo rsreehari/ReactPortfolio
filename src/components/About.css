@@ -1,5 +1,5 @@
 .about {
-  padding: 120px 0;
+  padding: 0; /* rely on global section padding from App.css */
 }
 
 .about-content {
@@ -118,7 +118,7 @@
 
 @media (max-width: 768px) {
   .about {
-    padding: 80px 0;
+    padding: 0; /* rely on global section padding from App.css */
   }
   
   .about-card {

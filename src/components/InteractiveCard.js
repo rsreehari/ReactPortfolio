@@ -2,10 +2,11 @@ import React, { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import './InteractiveCard.css';
 
-const InteractiveCard = ({ children, className = '', intensity = 0.1, ...props }) => {
+const InteractiveCard = ({ children, className = '', intensity = 0.1, enableEffects = false, ...props }) => {
   const cardRef = useRef(null);
 
   useEffect(() => {
+    if (!enableEffects) return;
     const card = cardRef.current;
     if (!card) return;
 
@@ -53,12 +54,12 @@ const InteractiveCard = ({ children, className = '', intensity = 0.1, ...props }
       card.removeEventListener('mouseenter', handleMouseEnter);
       card.removeEventListener('transitionend', handleTransitionEnd);
     };
-  }, [intensity]);
+  }, [intensity, enableEffects]);
 
   return (
     <motion.div
       ref={cardRef}
-      className={`interactive-card ${className}`}
+      className={`interactive-card ${enableEffects ? 'effects-on' : ''} ${className}`}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
