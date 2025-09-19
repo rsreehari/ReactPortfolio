@@ -35,16 +35,44 @@ function App() {
     // Simulate loading time for smooth entrance
     const timer = setTimeout(() => {
       setIsLoading(false);
-      // Decide on performance mode based on device
+      // Decide on performance mode based on device, but respect stored setting
       const lowMem = (navigator.deviceMemory && navigator.deviceMemory <= 4);
       const lowCPU = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
-      setPerformanceMode(media.matches || lowMem || lowCPU || (window.innerWidth <= 768));
+      const autoPerf = media.matches || lowMem || lowCPU || (window.innerWidth <= 768);
+      const stored = localStorage.getItem('performanceMode');
+      if (stored === 'true' || stored === 'false') {
+        setPerformanceMode(stored === 'true');
+      } else {
+        setPerformanceMode(autoPerf);
+      }
     }, 1500);
 
     return () => {
       window.removeEventListener('resize', checkMobile);
       media.removeEventListener?.('change', onChange);
       clearTimeout(timer);
+    };
+  }, []);
+
+  // Listen for performance mode toggle/set events
+  useEffect(() => {
+    const onToggle = () => {
+      setPerformanceMode(prev => {
+        const next = !prev;
+        localStorage.setItem('performanceMode', String(next));
+        return next;
+      });
+    };
+    const onSet = (e) => {
+      const next = Boolean(e.detail?.value);
+      setPerformanceMode(next);
+      localStorage.setItem('performanceMode', String(next));
+    };
+    window.addEventListener('togglePerformanceMode', onToggle);
+    window.addEventListener('setPerformanceMode', onSet);
+    return () => {
+      window.removeEventListener('togglePerformanceMode', onToggle);
+      window.removeEventListener('setPerformanceMode', onSet);
     };
   }, []);
 
